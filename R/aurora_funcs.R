@@ -21,6 +21,7 @@ compress <- function(x, scaledown=2) {
   return(xx)
 }
 
+#' @importFrom jpeg readJPEG
 #' @export
 pull_the_last_allsky <- function() {
   rawpage <- tryCatch(readLines("http://allsky.gi.alaska.edu/tagged_cam/"), error=function(x) "")
@@ -38,6 +39,7 @@ pull_the_last_allsky <- function() {
   return(rawpic)
 }
 
+#' @importFrom jpeg readJPEG
 #' @export
 pull_allsky <- function(npull=150, start=20, end=6) {
   hrs <- c(start:23,paste0("0",0:end))
@@ -61,6 +63,7 @@ pull_allsky <- function(npull=150, start=20, end=6) {
 }
 # allpics_226 <- pull_allsky()
 
+#' @importFrom jpeg readJPEG
 #' @export
 pull_murray <- function() {
   z <- tempfile()
@@ -70,6 +73,7 @@ pull_murray <- function() {
   return(rawpic)
 }
 
+#' @importFrom graphics rasterImage
 #' @export
 plotpic <- function(x, ...) {
   plot(NA,xlim=0:1,ylim=0:1,...=...)
@@ -117,6 +121,14 @@ sumcontrast2 <- function(x) {
   return(sumthing)
 }
 
+#' @importFrom graphics rasterImage
+#' @importFrom grDevices adjustcolor
+#' @importFrom grDevices rainbow
+#' @importFrom graphics abline
+#' @importFrom graphics legend
+#' @importFrom graphics lines
+#' @importFrom graphics points
+#' @importFrom graphics plot
 #' @export
 plot_pics_df <- function(x, df, pred=NULL) {
   mins <- matrix(apply(df,2,min,na.rm=T),nrow=nrow(df),ncol=ncol(df),byrow=T)
@@ -138,6 +150,7 @@ plot_pics_df <- function(x, df, pred=NULL) {
   }
 }
 
+#' @importFrom stats predict
 #' @export
 plot_pics_pred <- function(x, predmodel, pred_df, func=NULL) {
   preds <- predict(predmodel, newdata=pred_df)
@@ -147,6 +160,7 @@ plot_pics_pred <- function(x, predmodel, pred_df, func=NULL) {
   }
 }
 
+#' @importFrom mailR send.mail
 #' @export
 send_email <- function(mailto, mailuser, mailpw, sub,bod=" ") {
   send.mail(from = mailuser,
